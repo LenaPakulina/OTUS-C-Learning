@@ -3,20 +3,14 @@
 void printHash(CustomHash *hash)
 {
 	for (int i = 0; i < hash->size; i++) {
-		if (hash->table[i])
-			printf("Word: \"%s\", Count: %u\n",
-				   hash->table[i]->key,
-				   hash->table[i]->value);
+		if (hash->table[i]) {
+			printf("Word: \"%s\", Count: %u\n", hash->table[i]->key, hash->table[i]->value);
+		}
 	}
 }
 
 void closeApp(char *str)
 {
-	/*
-	 * При аварийном закрытии приложения, не освобождается память массивов из main.c
-	 * Приложение завершилось, нужно ли в таком случае освобождать память?
-	 */
-
 	printf("Error: %s\n", str);
 	exit(EXIT_FAILURE);
 }
@@ -53,14 +47,15 @@ int hashCode(char *str, CustomHash *hash)
 
 void insertKey(char *str, CustomHash *hash)
 {
-	if (strlen(str) == 0)
+	if (strlen(str) == 0) {
 		return;
+	}
 
 	int index = hashCode(str, hash);
 
-	int 	i = index;
-	bool 	success = false;
-	int 	red_line = hash->size;
+	int i = index;
+	bool success = false;
+	int red_line = hash->size;
 
 	while (i < red_line) {
 		if (hash->table[i]) {
@@ -81,13 +76,14 @@ void insertKey(char *str, CustomHash *hash)
 		}
 	}
 
-	if (!success)
+	if (!success) {
 		rebaseKey(str, hash);
+	}
 }
 
 void rebaseKey(char *str, CustomHash *hash)
 {
-	// увеличим размер hash-таблицы в 2 раза
+	// let's increase the size of the hash table by 2 unit
 	int new_size_hash_table = hash->size << 1;
 
 	CellHash **new_hash_table = (CellHash**) calloc(sizeof(CellHash*), new_size_hash_table);

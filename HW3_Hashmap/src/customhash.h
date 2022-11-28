@@ -12,14 +12,13 @@
 #include <ctype.h>
 
 typedef struct CellHash {
-	char			*key;
-	unsigned int	value;
+	char			*key; // word
+	unsigned int	value; // count
 } CellHash;
 
 typedef struct CustomHash {
 	CellHash			**table;
 	int					size;
-	bool				hasError;
 } CustomHash;
 
 void		closeApp(char *str);
