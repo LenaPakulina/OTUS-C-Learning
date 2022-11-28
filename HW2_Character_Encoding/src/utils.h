@@ -11,7 +11,7 @@
 
 #define ASCII_CONSTANT (0x80)
 
-void printUtf8Char(uint16_t symbol, FILE* dst);
+void printUtf8Char(uint32_t symbol, FILE* dst);
 int16_t *getCurrCode(char *str);
 
 #endif // UTILS_H

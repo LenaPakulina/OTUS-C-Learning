@@ -37,11 +37,15 @@ int main(int argc, char* argv[])
 
 	while (!feof(src)) {
 		int16_t chr = fgetc(src);
+		if (chr == EOF) {
+			fputc((unsigned char) chr, dst);
+			break;
+		}
 		if (chr < ASCII_CONSTANT) {
 			fputc((unsigned char) chr, dst);
 			continue;
 		}
-		int16_t symbol = currCode[chr];
+		int32_t symbol = currCode[chr - 0x80]; //  - 0x80 т.к. не храним одинаковые символы
 		printUtf8Char(symbol, dst);
 	}
 
