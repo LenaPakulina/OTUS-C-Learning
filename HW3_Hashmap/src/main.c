@@ -10,7 +10,37 @@
 #include "customhash.h"
 
 #define BUFFSIZE 4096
-#define SIZE_WORD 32
+
+int findMaxWordSize(int fd, char *dstBuf,unsigned int maxCharCount)
+{
+	int currWordSize = 0;
+	int ansSize = 0;
+
+	int N = 0;
+	int currIndPartFile = 0;
+
+	while ((N = read(fd, dstBuf, maxCharCount)) > 0){
+		currIndPartFile = 0;
+
+		while (currIndPartFile < N){
+			char currChar = dstBuf[currIndPartFile];
+			++currIndPartFile;
+
+			if (currChar == '\n' || isspace(currChar)) {
+				if (currWordSize > ansSize) {
+					ansSize = currWordSize;
+				}
+				currWordSize = 0;
+				continue;
+			}
+
+			++currWordSize;
+		}
+	}
+
+	memset(dstBuf, 0, maxCharCount);
+	return ansSize;
+}
 
 int main(int argc, char *argv[])
 {
@@ -30,7 +60,6 @@ int main(int argc, char *argv[])
 	int N = -1;										// total count of characters read
 
 	char bufFile[BUFFSIZE * sizeof(char)];			// array of text characters
-	char bufWord[SIZE_WORD * sizeof(char)];			// array word
 
 	// Inition CustomHash
 	CustomHash myHash = {.table = NULL, .size = 10};
@@ -40,6 +69,11 @@ int main(int argc, char *argv[])
 		close(fd);
 		return EXIT_FAILURE;
 	}
+
+	int maxWordSize = findMaxWordSize(open(argv[1], O_RDONLY), bufFile, BUFFSIZE);
+	printf("Max word size: %i\n", maxWordSize);
+
+	char bufWord[maxWordSize * sizeof(char)];			// array word
 
 	while ((N = read(fd, bufFile, BUFFSIZE)) > 0){
 		currIndPartFile = 0;
@@ -59,11 +93,7 @@ int main(int argc, char *argv[])
 				bufWord[0] = '\0';
 			} else {
 				bufWord[currIndWord] = bufFile[currIndPartFile];
-				if (++currIndWord == SIZE_WORD) {
-					printf("Error: some word is too long\n");
-					close(fd);
-					return EXIT_FAILURE;
-				}
+				++currIndWord;
 			}
 
 			++currIndPartFile;

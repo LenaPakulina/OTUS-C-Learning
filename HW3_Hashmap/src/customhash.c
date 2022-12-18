@@ -116,7 +116,7 @@ void rebaseKey(char *str, CustomHash *hash)
 		i++;
 	}
 
-	free(hash->table[i]);
+	free(hash->table); // don't change table[i] (the value references new_hash_table[i])
 	hash->table = new_hash_table;
 	insertKey(str, hash);
 }

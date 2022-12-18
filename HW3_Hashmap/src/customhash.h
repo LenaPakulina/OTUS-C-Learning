@@ -29,22 +29,4 @@ CellHash*	createCellHash(char *str);
 void		insertKey(char *str, CustomHash *hash);
 void		rebaseKey(char *str, CustomHash *hash);
 
-//----------------------------------------------------------------------------------------
-// Для себя
-//typedef struct MemoryLiberator {
-//	char *buf_file;
-//	char *buf_word;
-//	bool isRead;
-//	int *fd;
-//	CustomHash *myHash;
-//} MemoryLiberator;
-
-//static MemoryLiberator g_liberator = {
-//	.buf_file = NULL;
-//	.buf_word = NULL;
-//	isRead = false;
-//	.fd = NULL;
-//	.myHash = NULL;
-//}
-
 #endif // CUSTOMHASH_H
