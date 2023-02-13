@@ -56,7 +56,7 @@ char *do_get(const char *url)
 
     struct MemoryStruct chunk;
 
-    chunk.memory = malloc(1); /* will be grown as needed by the realloc above */
+    chunk.memory = malloc(0); /* will be grown as needed by the realloc above */
     chunk.size = 0;           /* no data at this point */
 
     printf("URL: %s\n", url);

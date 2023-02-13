@@ -65,7 +65,10 @@ int parse_weather_json(char* buffer) {
             printf("weatherDesc%i: %s\n",
                    (j+1),
                    weather.areas[i].weatherDescs[j]);
+
+            free(weather.areas[i].weatherDescs[j]);
         }
+        free(weather.areas[i].winddir16Point);
         free(weather.areas[i].weatherDescs);
     }
     free(weather.areas);

@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <curl/curl.h>
 
 #include "parser_json.h"
 #include "weather.h"
@@ -24,13 +23,17 @@ int main(int argc, char* argv[])
 
     char *resp = do_get(url);
     free(url);
+
     if (resp == NULL) {
         fprintf(stderr, "Error while do request to source URL\n");
         return EXIT_FAILURE;
     }
 
+    int value = parse_weather_json(resp);
+    free(resp);
+
     // Разбор и печать принятых данных
-    if (parse_weather_json(resp) != 0) {
+    if (value != 0) {
         printf("Failed to failed to parse json)\n");
         return EXIT_FAILURE;
     }
