@@ -19,7 +19,7 @@ MAIN_TYPE p(MAIN_TYPE v) {
 
 // Можно сделать через указатели
 MAIN_TYPE *add_element(MAIN_TYPE *prev, MAIN_TYPE value) {
-	MAIN_TYPE *ret = (MAIN_TYPE *)malloc(sizeof(MAIN_TYPE));
+	MAIN_TYPE *ret = (MAIN_TYPE *)malloc(2*sizeof(MAIN_TYPE));
 	if (!ret) {
 		return NULL;
 	}
