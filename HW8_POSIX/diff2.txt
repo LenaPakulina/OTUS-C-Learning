@@ -1,0 +1,20 @@
+--- clib/src/common/clib-package.c	2020-09-08 02:51:24.000000000 +0500
++++ clib2/src/common/clib-package.c	2023-03-08 20:05:35.910459689 +0500
+@@ -654,6 +654,9 @@
+     if (retries-- <= 0) {
+       goto error;
+     } else {
++      if (res) {
++         http_get_free(res);
++      }
+ #ifdef HAVE_PTHREADS
+       init_curl_share();
+       _debug("GET %s", json_url);
+@@ -664,6 +667,7 @@
+       json = res->data;
+       _debug("status: %d", res->status);
+       if (!res || !res->ok) {
++        http_get_free(res);
+         goto download;
+       }
+       log = "fetch";
