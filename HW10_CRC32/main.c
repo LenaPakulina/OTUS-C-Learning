@@ -35,7 +35,7 @@ int main (int argc, char **argv)
 
 	uint32_t num = getCrc32((const void *) src, statbuf.st_size);
 	munmap (src, statbuf.st_size);
-	printf ("CRC32 = %u\n", num);
+	printf ("CRC32 = %x\n", num);
 
 	return EXIT_SUCCESS;
 }
