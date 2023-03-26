@@ -5,7 +5,7 @@
 #include <time.h>   // Для time, ctime
 
 #define con_pattern "host=localhost port=5432 user=postgres password=1234 dbname=%s"
-#define insert_pattern "INSERT into %s(curr_time, price) values ('%s', %f)"
+#define insert_pattern "INSERT into taxi_price(curr_time, price) values ('%s', %.0f)"
 
 void print_error(const char *format, ...)
 {
@@ -23,7 +23,7 @@ static void __attribute__((noreturn)) finish_with_error (PGconn * conn)
 	exit (EXIT_FAILURE);
 }
 
-void insertPrice(PGconn * conn, const char *tableName, PriceInfo_t *info)
+void insertPrice(PGconn * conn, PriceInfo_t *info)
 {
 	char *insert_str = malloc(300);
 	if (!insert_str) {
@@ -41,7 +41,7 @@ void insertPrice(PGconn * conn, const char *tableName, PriceInfo_t *info)
 			  now->tm_year + 1900, now->tm_mon + 1, now->tm_mday,
 			  now->tm_hour, now->tm_min, now->tm_sec);
 
-	snprintf (insert_str, 300, insert_pattern, tableName, currTimeFormat, info->options[0].price);
+	snprintf (insert_str, 300, insert_pattern, currTimeFormat, info->options[0].price);
 	printf("%s\n", insert_str);
 
 	PGresult *res = PQexec (conn, insert_str);
