@@ -14,10 +14,11 @@ typedef struct entry
 
 typedef struct thread_data
 {
+	int num; // номер потока
+
 	entry_link file_path;
 	size_t byte_count;
 	pthread_t thread_id;
-	int num;
 	GHashTable *url_counter;
 	GHashTable *ref_counter;
 } thread_data;

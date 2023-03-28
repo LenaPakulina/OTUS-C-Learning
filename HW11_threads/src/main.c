@@ -17,7 +17,7 @@
 #include "utils.h"
 #include "threaddata.h"
 
-char save_pwd[PWD_LENGTH] = { 0 };
+char save_pwd[PWD_LENGTH] = {0};
 thread_data *thread_data_array = NULL;
 
 int main (int argc, char **argv)
@@ -31,7 +31,7 @@ int main (int argc, char **argv)
 		print_error ("ошибка вызова getcwd");
 	}
 
-	unsigned int count_threads = atoi (argv[2]);
+	unsigned int count_threads = atoi(argv[2]);
 	if (count_threads < 1 || count_threads > 50) {
 		count_threads = 1;
 	}
@@ -57,7 +57,6 @@ int main (int argc, char **argv)
 								   count_threads,
 								   dirp->d_name);
 	}
-
 
 	closedir(dp);
 

@@ -12,4 +12,4 @@ add_executable(${This} src/main.c src/utils.h src/utils.c src/threaddata.h src/t
 
 add_definitions(${GLIB_CFLAGS_OTHER})
 target_link_libraries(${This} PUBLIC ${GLIB_LIBRARIES} pthread pcre)
-target_compile_options(${This} PUBLIC -Wall -Wextra -Wpedantic -std=gnu11)
+target_compile_options(${This} PUBLIC -Wall -Wextra -Wpedantic -std=c11)

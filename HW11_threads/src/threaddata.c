@@ -68,5 +68,4 @@ void add_file_path_thread_data (thread_data * thread_data_array, int count,
 	entry *file_path_old = thread_data_array[index].file_path;
 	thread_data_array[index].file_path = new_entry (file_path_name);
 	thread_data_array[index].file_path->next = file_path_old;
-
 }
