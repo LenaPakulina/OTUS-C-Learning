@@ -27,23 +27,18 @@ static void __attribute__((noreturn)) finish_with_error (PGconn * conn)
 
 void insertPrice(PGconn * conn, PriceInfo_t *info)
 {
-	char *insert_str = malloc(300);
-	if (!insert_str) {
-		exit(EXIT_FAILURE);
-	}
+	char currTimeFormat[STR_LEN] = { 0 };
+	char insert_str[STR_LEN] = { 0 };
 
 	// Переменная для сохранения текущего времени
 	time_t mytime = time(NULL);
 	struct tm *now = localtime(&mytime);
-	char *currTimeFormat = malloc(100);
-	if (!currTimeFormat) {
-		exit(EXIT_FAILURE);
-	}
-	snprintf(currTimeFormat, 100, "%d-%d-%d %d:%d:%d",
+
+	snprintf(currTimeFormat, STR_LEN, "%d-%d-%d %d:%d:%d",
 			  now->tm_year + 1900, now->tm_mon + 1, now->tm_mday,
 			  now->tm_hour, now->tm_min, now->tm_sec);
 
-	snprintf (insert_str, 300, insert_pattern, currTimeFormat, info->options[0].price);
+	snprintf (insert_str, STR_LEN, insert_pattern, currTimeFormat, info->options[0].price);
 	//printf("%s\n", insert_str);
 
 	PGresult *res = PQexec (conn, insert_str);
@@ -51,27 +46,17 @@ void insertPrice(PGconn * conn, PriceInfo_t *info)
 	if (PQresultStatus (res) != PGRES_COMMAND_OK) {
 		finish_with_error (conn);
 	}
-
-	free (insert_str);
 }
 
 PGconn *createPGconn()
 {
-	size_t con_len = sizeof (con_pattern) + strlen (g_config.dbname) + 1;
-	char *con_str = malloc(con_len);
-	if (con_str == NULL) {
-		print_error("Failed to allocate memory for PGconn.");
-		return NULL;
-	}
-	snprintf (con_str, con_len, con_pattern, g_config.dbname);
+	char con_str[STR_LEN] = { 0 };
+	snprintf (con_str, STR_LEN, con_pattern, g_config.dbname);
 
 	PGconn *conn = PQconnectdb (con_str);
-	free(con_str);
-
 	if (PQstatus (conn) != CONNECTION_OK) {
 		finish_with_error (conn);
 	}
 
 	return conn;
 }
-

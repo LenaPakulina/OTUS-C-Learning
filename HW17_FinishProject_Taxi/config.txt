@@ -16,7 +16,7 @@ start_latitude = "60.580183";
 end_longitude = "56.836332";
 end_latitude= "60.605649";
 class_auto = "business";
-acceptable_cost = 250;
+acceptable_cost = 230;
 
 clid = "ak230217";
 apiKey = "eoijZmtxulZlciAlFRkHYdUOwkWovgqohMRWMaEG";

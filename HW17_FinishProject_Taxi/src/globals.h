@@ -6,6 +6,8 @@
 #include <libappindicator/app-indicator.h>
 #include "db_config.h"
 
+#define STR_LEN 1000
+
 extern PGconn			*g_conn;
 extern char				*g_url;
 extern AppIndicator		*g_indicator;

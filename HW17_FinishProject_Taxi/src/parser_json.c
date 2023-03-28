@@ -31,7 +31,7 @@ void parse_string(char** destination, struct json_object* tokens, const char* na
 }
 
 int parse_taxi_price_json(PriceInfo_t *price, char* buffer) {
-	printf("%s\n", buffer);
+	//printf("%s\n", buffer);
 
 	struct json_object* parsed = json_tokener_parse(buffer);
 	struct json_object* tokens = NULL;

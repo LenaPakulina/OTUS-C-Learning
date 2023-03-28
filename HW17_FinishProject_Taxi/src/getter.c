@@ -70,17 +70,8 @@ char *do_get(const char *url)
 
 char *make_default_url()
 {
-	char *clid = "ak230217";
-	char *apiKey = "eoijZmtxulZlciAlFRkHYdUOwkWovgqohMRWMaEG";
-
-	char *start_longitude = "56.797128";
-	char *start_latitude = "60.580183";
-	char *end_longitude = "56.836332";
-	char *end_latitude= "60.605649";
-	char *class1= "business";
-
 	char *out_buf = NULL;
-	out_buf = (char *)malloc(1000);
+	out_buf = (char *)malloc(1000); // удаляется в main.c
 	if (out_buf == NULL) {
 		goto stop;
 	}
