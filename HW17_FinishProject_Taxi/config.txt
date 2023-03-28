@@ -1,0 +1,22 @@
+# Application configuration file
+    
+hostName = "localhost";
+portNum = 5432;
+userName = "postgres";
+password = "1234";
+dbname = "taxi";
+
+price1_Icon = "/usr/share/icons/Papirus/32x32/emotes/face-smile-big.svg";
+price2_Icon = "/usr/share/icons/Papirus/32x32/emotes/face-worried.svg";
+
+# Ниже параметры для описания поездки
+
+start_longitude = "56.797128";
+start_latitude = "60.580183";
+end_longitude = "56.836332";
+end_latitude= "60.605649";
+class_auto = "business";
+acceptable_cost = 250;
+
+clid = "ak230217";
+apiKey = "eoijZmtxulZlciAlFRkHYdUOwkWovgqohMRWMaEG";

@@ -4,6 +4,7 @@
 #include <stdio.h>
 
 #include <curl/curl.h>
+#include "db_config.h"
 
 struct MemoryStruct
 {
@@ -41,7 +42,7 @@ char *do_get(const char *url)
 
 	struct MemoryStruct chunk;
 
-	chunk.memory = malloc(0); /* will be grown as needed by the realloc above */
+	chunk.memory = NULL; /* will be grown as needed by the realloc above */
 	chunk.size = 0;           /* no data at this point */
 
 	printf("URL: %s\n", url);
@@ -85,7 +86,10 @@ char *make_default_url()
 	}
 
 	sprintf(out_buf, "https://taxi-routeinfo.taxi.yandex.net/taxi_info?clid=%s&apikey=%s&rll=%s,%s~%s,%s&class=%s",
-			clid, apiKey, start_latitude, start_longitude, end_latitude, end_longitude, class1);
+			g_config.clid, g_config.apiKey,
+			g_config.start_latitude, g_config.start_longitude,
+			g_config.end_latitude, g_config.end_longitude,
+			g_config.class_auto);
 
 stop:
 	return out_buf;

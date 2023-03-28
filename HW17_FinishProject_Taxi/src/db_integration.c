@@ -1,5 +1,7 @@
 #include "db_integration.h"
 #include "price.h"
+#include "globals.h"
+#include "db_config.h"
 
 #include <stdio.h>  // Для printf
 #include <time.h>   // Для time, ctime
@@ -37,12 +39,12 @@ void insertPrice(PGconn * conn, PriceInfo_t *info)
 	if (!currTimeFormat) {
 		exit(EXIT_FAILURE);
 	}
-	snprintf (currTimeFormat, 100, "%d-%d-%d %d:%d:%d",
+	snprintf(currTimeFormat, 100, "%d-%d-%d %d:%d:%d",
 			  now->tm_year + 1900, now->tm_mon + 1, now->tm_mday,
 			  now->tm_hour, now->tm_min, now->tm_sec);
 
 	snprintf (insert_str, 300, insert_pattern, currTimeFormat, info->options[0].price);
-	printf("%s\n", insert_str);
+	//printf("%s\n", insert_str);
 
 	PGresult *res = PQexec (conn, insert_str);
 
@@ -55,15 +57,16 @@ void insertPrice(PGconn * conn, PriceInfo_t *info)
 
 PGconn *createPGconn()
 {
-	char *dataBaseName = "taxi";
-	char *tableName = "taxi";
-	char *columnNameStr = "taxi";
-
-	size_t con_len = sizeof (con_pattern) + strlen (dataBaseName) + 1;
-	char *con_str = malloc (con_len);
-	snprintf (con_str, con_len, con_pattern, dataBaseName);
+	size_t con_len = sizeof (con_pattern) + strlen (g_config.dbname) + 1;
+	char *con_str = malloc(con_len);
+	if (con_str == NULL) {
+		print_error("Failed to allocate memory for PGconn.");
+		return NULL;
+	}
+	snprintf (con_str, con_len, con_pattern, g_config.dbname);
 
 	PGconn *conn = PQconnectdb (con_str);
+	free(con_str);
 
 	if (PQstatus (conn) != CONNECTION_OK) {
 		finish_with_error (conn);

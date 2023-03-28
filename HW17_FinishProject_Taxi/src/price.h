@@ -38,4 +38,4 @@ typedef struct PriceInfo {
 //  "time": 3816.9397069215775
 //}
 
-#endif PRICE_
+#endif
